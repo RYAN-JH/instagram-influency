@@ -73,6 +73,14 @@
         .submit-btn:hover {
             background-color: #555;
         }
+        .progress-spinner {
+            display: none;
+            margin-top: 20px;
+        }
+        .progress-spinner img {
+            width: 50px;
+            height: 50px;
+        }
     </style>
 </head>
 <body>
@@ -80,13 +88,38 @@
         <div class="title">인스타그램 광고 단가 예측하기</div>
         <div class="subtitle">아래의 양식에 내용을 추가하고 내 예상 광고 단가를 산출해보세요.</div>
         <div class="description">아이디는 비공개되며, 인게이지먼트 수집 후 삭제됩니다.</div>
-        <form>
+        <form id="instagram-form">
             <div class="input-group">
                 <label for="instagram-id">인스타그램 아이디 (필수)</label>
                 <input type="text" id="instagram-id" name="instagram-id" placeholder="인스타그램 아이디 (필수)" required>
             </div>
-            <a class="submit-btn" href="#">등록하기 ➔</a>
+            <button type="submit" class="submit-btn">등록하기 ➔</button>
         </form>
+        <div class="progress-spinner" id="progress-spinner">
+            <img src="https://i.imgur.com/LL9xshE.gif" alt="Loading...">
+        </div>
     </div>
+
+    <script>
+        document.getElementById('instagram-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const instagramId = document.getElementById('instagram-id').value;
+            const url = `https://hook.us1.make.com/6oymcarxdtxy0161ookzg7nfp43zn11j?instagram_id=${encodeURIComponent(instagramId)}`;
+            
+            document.querySelector('.submit-btn').style.display = 'none';
+            document.getElementById('progress-spinner').style.display = 'block';
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Success:', data);
+                    // 처리할 로직 추가
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                    // 에러 처리 로직 추가
+                });
+        });
+    </script>
 </body>
 </html>

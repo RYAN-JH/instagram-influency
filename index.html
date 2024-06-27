@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>인스타그램 인플루언서 예상 광고 단가 산출</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f2f5;
+            color: #333;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 80%;
+            max-width: 500px;
+        }
+        .profile {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background-size: cover;
+            margin: 0 auto 20px auto;
+            border: 2px solid #333;
+        }
+        .title {
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            color: #0077b6;
+        }
+        .data {
+            margin: 12px 0;
+            font-size: 1.1em;
+        }
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+        }
+        .footer a {
+            text-decoration: none;
+            color: #0077b6;
+        }
+        .footer-icons {
+            margin-top: 15px;
+        }
+        .footer-icons a {
+            margin: 0 10px;
+        }
+        .footer-icons img {
+            width: 30px;
+            height: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="title">인스타그램 인플루언서 예상 광고 단가 산출</div>
+        <div class="profile" id="profile-picture"></div>
+        <div class="data" id="id"></div>
+        <div class="data" id="followers"></div>
+        <div class="data" id="post-rate"></div>
+        <div class="data" id="reels-rate"></div>
+        <div class="data" id="avg-likes"></div>
+        <div class="data" id="avg-comments"></div>
+        <div class="data" id="avg-shares"></div>
+        <div class="data" id="estimated-impact"></div>
+        <div class="data" id="engagement-rate"></div>
+        <div class="data" id="advertiser-suggestions"></div>
+        <div class="data" id="influencer-suggestions"></div>
+        <div class="data" id="recommended-products"></div>
+        <div class="footer">
+            <div><a href="https://threads.net/moment.ryan">created by @moment.ryan</a></div>
+            <div>2024 @moment.ryan. all rights reserved</div>
+            <div class="footer-icons">
+                <a href="https://www.instagram.com/moment.ryan">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram">
+                </a>
+                <a href="https://threads.net/moment.ryan">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/7/74/Threads-logo-vector.svg" alt="Threads">
+                </a>
+            </div>
+        </div>
+    </div>
+    <script>
+        async function fetchData() {
+            try {
+                const response = await fetch('data.json'); // data.json 파일의 경로를 입력하세요.
+                const data = await response.json();
+                populateData(data);
+            } catch (error) {
+                console.error('Error fetching the JSON data:', error);
+            }
+        }
+
+        function populateData(data) {
+            document.getElementById('profile-picture').style.backgroundImage = `url(${data.profilePicture})`;
+            document.getElementById('id').innerText = `ID: ${data.id}`;
+            document.getElementById('followers').innerText = `Followers: ${data.followers}`;
+            document.getElementById('post-rate').innerText = `Post Rate: ${data.postRate}`;
+            document.getElementById('reels-rate').innerText = `Reels Rate: ${data.reelsRate}`;
+            document.getElementById('avg-likes').innerText = `Average Likes: ${data.avgLikes}`;
+            document.getElementById('avg-comments').innerText = `Average Comments: ${data.avgComments}`;
+            document.getElementById('avg-shares').innerText = `Average Shares: ${data.avgShares}`;
+            document.getElementById('estimated-impact').innerText = `Estimated Impact: ${data.estimatedImpact}`;
+            document.getElementById('engagement-rate').innerText = `Engagement Rate: ${data.engagementRate}`;
+            document.getElementById('advertiser-suggestions').innerText = `Advertiser Suggestions: ${data.advertiserSuggestions}`;
+            document.getElementById('influencer-suggestions').innerText = `Influencer Suggestions: ${data.influencerSuggestions}`;
+            document.getElementById('recommended-products').innerText = `Recommended Products: ${data.recommendedProducts}`;
+        }
+
+        document.addEventListener('DOMContentLoaded', fetchData);
+    </script>
+</body>
+</html>

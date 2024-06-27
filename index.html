@@ -86,39 +86,42 @@
                     <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram">
                 </a>
                 <a href="https://threads.net/moment.ryan">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/7/74/Threads-logo-vector.svg" alt="Threads">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Threads_%28app%29_logo.svg/640px-Threads_%28app%29_logo.svg.png" alt="Threads">
                 </a>
             </div>
         </div>
     </div>
     <script>
-        async function fetchData() {
-            try {
-                const response = await fetch('data.json'); // data.json 파일의 경로를 입력하세요.
-                const data = await response.json();
-                populateData(data);
-            } catch (error) {
-                console.error('Error fetching the JSON data:', error);
-            }
-        }
+        // Example JSON data
+        const data = {
+            "profilePicture": "https://example.com/profile.jpg",
+            "id": "@influencer_id",
+            "followers": "1.2M",
+            "postRate": "$1000 - $2000",
+            "reelsRate": "$1500 - $3000",
+            "avgLikes": "10K",
+            "avgComments": "500",
+            "avgShares": "100",
+            "estimatedImpact": "High",
+            "engagementRate": "Excellent",
+            "advertiserSuggestions": "Collaborate with fitness brands",
+            "influencerSuggestions": "Increase story posts",
+            "recommendedProducts": "Fitness equipment, Health supplements"
+        };
 
-        function populateData(data) {
-            document.getElementById('profile-picture').style.backgroundImage = `url(${data.profilePicture})`;
-            document.getElementById('id').innerText = `ID: ${data.id}`;
-            document.getElementById('followers').innerText = `Followers: ${data.followers}`;
-            document.getElementById('post-rate').innerText = `Post Rate: ${data.postRate}`;
-            document.getElementById('reels-rate').innerText = `Reels Rate: ${data.reelsRate}`;
-            document.getElementById('avg-likes').innerText = `Average Likes: ${data.avgLikes}`;
-            document.getElementById('avg-comments').innerText = `Average Comments: ${data.avgComments}`;
-            document.getElementById('avg-shares').innerText = `Average Shares: ${data.avgShares}`;
-            document.getElementById('estimated-impact').innerText = `Estimated Impact: ${data.estimatedImpact}`;
-            document.getElementById('engagement-rate').innerText = `Engagement Rate: ${data.engagementRate}`;
-            document.getElementById('advertiser-suggestions').innerText = `Advertiser Suggestions: ${data.advertiserSuggestions}`;
-            document.getElementById('influencer-suggestions').innerText = `Influencer Suggestions: ${data.influencerSuggestions}`;
-            document.getElementById('recommended-products').innerText = `Recommended Products: ${data.recommendedProducts}`;
-        }
-
-        document.addEventListener('DOMContentLoaded', fetchData);
+        document.getElementById('profile-picture').style.backgroundImage = `url(${data.profilePicture})`;
+        document.getElementById('id').innerText = `ID: ${data.id}`;
+        document.getElementById('followers').innerText = `Followers: ${data.followers}`;
+        document.getElementById('post-rate').innerText = `Post Rate: ${data.postRate}`;
+        document.getElementById('reels-rate').innerText = `Reels Rate: ${data.reelsRate}`;
+        document.getElementById('avg-likes').innerText = `Average Likes: ${data.avgLikes}`;
+        document.getElementById('avg-comments').innerText = `Average Comments: ${data.avgComments}`;
+        document.getElementById('avg-shares').innerText = `Average Shares: ${data.avgShares}`;
+        document.getElementById('estimated-impact').innerText = `Estimated Impact: ${data.estimatedImpact}`;
+        document.getElementById('engagement-rate').innerText = `Engagement Rate: ${data.engagementRate}`;
+        document.getElementById('advertiser-suggestions').innerText = `Advertiser Suggestions: ${data.advertiserSuggestions}`;
+        document.getElementById('influencer-suggestions').innerText = `Influencer Suggestions: ${data.influencerSuggestions}`;
+        document.getElementById('recommended-products').innerText = `Recommended Products: ${data.recommendedProducts}`;
     </script>
 </body>
 </html>

@@ -69,44 +69,27 @@
             return url.searchParams.get(name);
         }
 
-        const instagramId = getParameterByName('instagram_id');
+        const dataParam = getParameterByName('data');
         
-        // Function to fetch data from the server
-        function fetchData(instagramId) {
-            const url = `https://hook.us1.make.com/6oymcarxdtxy0161ookzg7nfp43zn11j?instagram_id=${encodeURIComponent(instagramId)}`;
-            return fetch(url).then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            });
+        if (!dataParam) {
+            window.location.href = 'error.html';
+        } else {
+            const data = JSON.parse(decodeURIComponent(dataParam));
+
+            document.getElementById('id').innerText = data.id;
+            document.getElementById('profile-image').style.backgroundImage = `url(${data.profile_image})`;
+            document.getElementById('followers_count').innerText = data.followers_count;
+            document.getElementById('expected_photo_ad_price_range').innerText = data.expected_photo_ad_price_range;
+            document.getElementById('expected_reels_ad_price_range').innerText = data.expected_reels_ad_price_range;
+            document.getElementById('average_likes_count').innerText = data.average_likes_count;
+            document.getElementById('average_comment_count').innerText = data.average_comment_count;
+            document.getElementById('average_share_count').innerText = data.average_share_count;
+            document.getElementById('expected_influency').innerText = data.expected_influency;
+            document.getElementById('engagement_evaluation').innerText = data.engagement_evaluation;
+            document.getElementById('influency_evaluation_as_advertiser').innerText = data.influency_evaluation_as_advertiser;
+            document.getElementById('influency_evaluation_as_influencer').innerText = data.influency_evaluation_as_influencer;
+            document.getElementById('suggested_products_categories').innerText = data.suggested_products_categories.join(', ');
         }
-
-        fetchData(instagramId)
-            .then(data => {
-                if (!data || !data.id) {
-                    window.location.href = 'error.html';
-                    return;
-                }
-
-                document.getElementById('id').innerText = data.id;
-                document.getElementById('profile-image').style.backgroundImage = `url(${data.profile_image})`;
-                document.getElementById('followers_count').innerText = data.followers_count;
-                document.getElementById('expected_photo_ad_price_range').innerText = data.expected_photo_ad_price_range;
-                document.getElementById('expected_reels_ad_price_range').innerText = data.expected_reels_ad_price_range;
-                document.getElementById('average_likes_count').innerText = data.average_likes_count;
-                document.getElementById('average_comment_count').innerText = data.average_comment_count;
-                document.getElementById('average_share_count').innerText = data.average_share_count;
-                document.getElementById('expected_influency').innerText = data.expected_influency;
-                document.getElementById('engagement_evaluation').innerText = data.engagement_evaluation;
-                document.getElementById('influency_evaluation_as_advertiser').innerText = data.influency_evaluation_as_advertiser;
-                document.getElementById('influency_evaluation_as_influencer').innerText = data.influency_evaluation_as_influencer;
-                document.getElementById('suggested_products_categories').innerText = data.suggested_products_categories.join(', ');
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                window.location.href = 'error.html';
-            });
     </script>
 </body>
 </html>

@@ -43,6 +43,7 @@
             background-size: cover;
             background-position: center; /* 이미지 중앙에 위치 */
             margin: 0 auto 20px;
+            border: 2px solid #ccc;
         }
         .data {
             margin: 15px 0;
@@ -84,7 +85,7 @@
         <div class="data"><label>평균 댓글 수: </label><span id="average_comment_count"></span></div>
         <div class="data"><label>예상 영향력: </label><span id="expected_influency"></span></div>
         <div class="data"><label>인게이지먼트 평가: </label><span id="engagement_evaluation"></span></div>
-        <div class="data"><label>광고역량 요약: </label><span id="influency_evaluation_as_advertiser"></span></div>
+        <div class="data"><label>광고 역량 요약: </label><span id="influency_evaluation_as_advertiser"></span></div>
         <div class="data"><label>추천 제품 카테고리: </label><span id="suggested_products_categories"></span></div>
     </div>
 
@@ -108,16 +109,6 @@
             document.getElementById('id').innerText = data.id;
             const profileImageElement = document.getElementById('profile-image');
             profileImageElement.style.backgroundImage = `url(${data.profile_image})`;
-            
-            // Check if the image loads successfully
-            const img = new Image();
-            img.onload = function() {
-                profileImageElement.style.backgroundImage = `url(${data.profile_image})`;
-            };
-            img.onerror = function() {
-                console.error('Profile image failed to load.');
-            };
-            img.src = data.profile_image;
 
             document.getElementById('followers_count').innerText = numberWithCommas(data.followers_count);
             document.getElementById('expected_photo_ad_price_range').innerText = data.expected_photo_ad_price_range;

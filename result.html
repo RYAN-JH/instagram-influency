@@ -8,14 +8,13 @@
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
-            flex-direction: column;
-            align-items: center;
             justify-content: center;
             height: 100vh;
             margin: 0;
             background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
             color: #333;
             padding: 20px;
+            overflow-y: auto; /* 스크롤 가능하도록 추가 */
         }
         .container {
             background: white;
@@ -26,6 +25,7 @@
             width: 90%;
             max-width: 600px;
             box-sizing: border-box;
+            margin: 20px 0; /* 상단과 하단 여백 추가 */
         }
         .title {
             font-size: 1.5em;
@@ -101,8 +101,8 @@
             img.src = data.profile_image;
 
             document.getElementById('followers_count').innerText = numberWithCommas(data.followers_count);
-            document.getElementById('expected_photo_ad_price_range').innerText = numberWithCommas(data.expected_photo_ad_price_range);
-            document.getElementById('expected_reels_ad_price_range').innerText = numberWithCommas(data.expected_reels_ad_price_range);
+            document.getElementById('expected_photo_ad_price_range').innerText = data.expected_photo_ad_price_range;
+            document.getElementById('expected_reels_ad_price_range').innerText = data.expected_reels_ad_price_range;
             document.getElementById('average_likes_count').innerText = numberWithCommas(data.average_likes_count);
             document.getElementById('average_comment_count').innerText = numberWithCommas(data.average_comment_count);
             document.getElementById('average_share_count').innerText = numberWithCommas(data.average_share_count);

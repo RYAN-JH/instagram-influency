@@ -30,12 +30,37 @@
             margin-bottom: 20px;
             font-weight: bold;
         }
+        .profile-image {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-size: cover;
+            margin: 0 auto 20px;
+        }
+        .data {
+            margin: 10px 0;
+        }
+        .data label {
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="title">결과 페이지</div>
-        <div id="result"></div>
+        <div id="profile-image" class="profile-image"></div>
+        <div class="data"><label>ID: </label><span id="id"></span></div>
+        <div class="data"><label>Followers Count: </label><span id="followers_count"></span></div>
+        <div class="data"><label>Expected Photo Ad Price Range: </label><span id="expected_photo_ad_price_range"></span></div>
+        <div class="data"><label>Expected Reels Ad Price Range: </label><span id="expected_reels_ad_price_range"></span></div>
+        <div class="data"><label>Average Likes Count: </label><span id="average_likes_count"></span></div>
+        <div class="data"><label>Average Comment Count: </label><span id="average_comment_count"></span></div>
+        <div class="data"><label>Average Share Count: </label><span id="average_share_count"></span></div>
+        <div class="data"><label>Expected Influency: </label><span id="expected_influency"></span></div>
+        <div class="data"><label>Engagement Evaluation: </label><span id="engagement_evaluation"></span></div>
+        <div class="data"><label>Influency Evaluation as Advertiser: </label><span id="influency_evaluation_as_advertiser"></span></div>
+        <div class="data"><label>Influency Evaluation as Influencer: </label><span id="influency_evaluation_as_influencer"></span></div>
+        <div class="data"><label>Suggested Products Categories: </label><span id="suggested_products_categories"></span></div>
     </div>
 
     <script>
@@ -45,7 +70,43 @@
         }
 
         const instagramId = getParameterByName('instagram_id');
-        document.getElementById('result').innerText = `인스타그램 아이디: ${instagramId}`;
+        
+        // Function to fetch data from the server
+        function fetchData(instagramId) {
+            const url = `https://hook.us1.make.com/6oymcarxdtxy0161ookzg7nfp43zn11j?instagram_id=${encodeURIComponent(instagramId)}`;
+            return fetch(url).then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            });
+        }
+
+        fetchData(instagramId)
+            .then(data => {
+                if (!data || !data.id) {
+                    window.location.href = 'error.html';
+                    return;
+                }
+
+                document.getElementById('id').innerText = data.id;
+                document.getElementById('profile-image').style.backgroundImage = `url(${data.profile_image})`;
+                document.getElementById('followers_count').innerText = data.followers_count;
+                document.getElementById('expected_photo_ad_price_range').innerText = data.expected_photo_ad_price_range;
+                document.getElementById('expected_reels_ad_price_range').innerText = data.expected_reels_ad_price_range;
+                document.getElementById('average_likes_count').innerText = data.average_likes_count;
+                document.getElementById('average_comment_count').innerText = data.average_comment_count;
+                document.getElementById('average_share_count').innerText = data.average_share_count;
+                document.getElementById('expected_influency').innerText = data.expected_influency;
+                document.getElementById('engagement_evaluation').innerText = data.engagement_evaluation;
+                document.getElementById('influency_evaluation_as_advertiser').innerText = data.influency_evaluation_as_advertiser;
+                document.getElementById('influency_evaluation_as_influencer').innerText = data.influency_evaluation_as_influencer;
+                document.getElementById('suggested_products_categories').innerText = data.suggested_products_categories.join(', ');
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                window.location.href = 'error.html';
+            });
     </script>
 </body>
 </html>

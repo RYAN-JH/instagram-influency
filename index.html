@@ -113,11 +113,13 @@
                 .then(response => response.json())
                 .then(data => {
                     console.log('Success:', data);
-                    window.location.href = `result.html?instagram_id=${encodeURIComponent(instagramId)}`;
+                    const resultUrl = new URL('result.html', window.location.origin);
+                    resultUrl.searchParams.append('data', encodeURIComponent(JSON.stringify(data)));
+                    window.location.href = resultUrl;
                 })
                 .catch((error) => {
                     console.error('Error:', error);
-                    // 에러 처리 로직 추가
+                    window.location.href = 'error.html';
                 });
         });
     </script>

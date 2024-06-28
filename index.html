@@ -113,7 +113,7 @@
                 .then(response => response.json())
                 .then(data => {
                     console.log('Success:', data);
-                    const resultUrl = new URL('/result.html', window.location.origin);
+                    const resultUrl = new URL('/instagram-influency/result.html', window.location.origin);
                     resultUrl.searchParams.append('data', encodeURIComponent(JSON.stringify(data)));
                     window.location.href = resultUrl;
                 })

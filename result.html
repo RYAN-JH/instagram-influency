@@ -95,6 +95,12 @@
             border: 2px solid #333;
             border-radius: 5px;
         }
+        .disclaimer {
+            font-size: 0.8em;
+            color: #666;
+            font-style: italic;
+            margin-top: 10px;
+        }
         @media (max-width: 600px) {
             .container {
                 padding: 20px;
@@ -122,7 +128,7 @@
     <div class="container">
         <div class="title">예측 결과</div>
         <div class="profile-image">
-            <img id="profile-image" src="data:image/jpeg;base64,BASE64_ENCODED_IMAGE_DATA" alt="Profile Image" onerror="this.src='fallback-image-url.png';">
+            <img id="profile-image" src="" alt="Profile Image" onerror="this.src='fallback-image-url.png';">
         </div>
         <div class="data"><label>ID: </label><span id="id"></span></div>
         <div class="data"><label>팔로워 수: </label><span id="followers_count"></span></div>
@@ -130,10 +136,11 @@
         <div class="data"><label>예상 릴스 광고 단가 범위: </label><span id="expected_reels_ad_price_range"></span></div>
         <div class="data"><label>평균 좋아요 수: </label><span id="average_likes_count"></span></div>
         <div class="data"><label>평균 댓글 수: </label><span id="average_comment_count"></span></div>
-        <div class="data"><label>예상 영향력: </label><span id="expected_influency"></span></div>
+        <div class="data"><label>예상 영향력(100점 만점): </label><span id="expected_influency"></span></div>
         <div class="data"><label>인게이지먼트 평가: </label><span id="engagement_evaluation"></span></div>
         <div class="data"><label>광고 역량 요약: </label><span id="influency_evaluation_as_advertiser"></span></div>
         <div class="data"><label>추천 제품 카테고리: </label><span id="suggested_products_categories"></span></div>
+        <div class="disclaimer">주의: 예측 모델은 완벽하지 않으며, 참고용도로 사용하시기 바랍니다.</div>
 
         <div class="footer-text">
             2024. created by <a href="https://threads.net/moment.ryan" target="_blank">@moment.ryan</a> All Rights Reserved.
@@ -154,6 +161,18 @@
     </div>
 
     <script>
+        async function fetchImageAsDataURL(url) {
+            const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+            const response = await fetch(proxyUrl + url);
+            const blob = await response.blob();
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onloadend = () => resolve(reader.result);
+                reader.onerror = reject;
+                reader.readAsDataURL(blob);
+            });
+        }
+
         function getParameterByName(name) {
             const url = new URL(window.location.href);
             return url.searchParams.get(name);
@@ -172,6 +191,14 @@
                 const data = JSON.parse(decodeURIComponent(dataParam));
 
                 document.getElementById('id').innerText = data.id;
+                try {
+                    const profileImageDataURL = await fetchImageAsDataURL(data.profile_image);
+                    document.getElementById('profile-image').src = profileImageDataURL;
+                } catch (error) {
+                    console.error('Profile image failed to load:', error);
+                    document.getElementById('profile-image').src = 'fallback-image-url.png'; // 대체 이미지 URL
+                }
+
                 document.getElementById('followers_count').innerText = numberWithCommas(data.followers_count);
                 document.getElementById('expected_photo_ad_price_range').innerText = data.expected_photo_ad_price_range;
                 document.getElementById('expected_reels_ad_price_range').innerText = data.expected_reels_ad_price_range;

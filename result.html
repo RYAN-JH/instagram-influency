@@ -122,7 +122,7 @@
     <div class="container">
         <div class="title">예측 결과</div>
         <div class="profile-image">
-            <img id="profile-image" src="" alt="Profile Image" onerror="this.src='fallback-image-url.png';">
+            <img id="profile-image" src="" alt="Profile Image" onerror="this.onerror=null; this.src='fallback-image-url.png';">
         </div>
         <div class="data"><label>ID: </label><span id="id"></span></div>
         <div class="data"><label>팔로워 수: </label><span id="followers_count"></span></div>
@@ -163,20 +163,14 @@
             return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         }
 
-        async function fetchImage(url) {
-            const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
-            const response = await fetch(proxyUrl + url);
-            if (!response.ok) {
-                throw new Error('Network response was not ok.');
-            }
-            const blob = await response.blob();
-            const dataUrl = await new Promise((resolve, reject) => {
-                const reader = new FileReader();
-                reader.onloadend = () => resolve(reader.result);
-                reader.onerror = reject;
-                reader.readAsDataURL(blob);
+        function loadImage(url) {
+            return new Promise((resolve, reject) => {
+                const img = new Image();
+                img.crossOrigin = "anonymous";
+                img.onload = () => resolve(img.src);
+                img.onerror = reject;
+                img.src = url;
             });
-            return dataUrl;
         }
 
         async function loadData() {
@@ -188,10 +182,10 @@
                 const data = JSON.parse(decodeURIComponent(dataParam));
 
                 document.getElementById('id').innerText = data.id;
-
+                
                 try {
-                    const profileImageDataUrl = await fetchImage(data.profile_image);
-                    document.getElementById('profile-image').src = profileImageDataUrl;
+                    const profileImageSrc = await loadImage(data.profile_image);
+                    document.getElementById('profile-image').src = profileImageSrc;
                 } catch (error) {
                     console.error('Profile image failed to load:', error);
                     document.getElementById('profile-image').src = 'fallback-image-url.png'; // 대체 이미지 URL

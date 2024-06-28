@@ -9,13 +9,13 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
             justify-content: center;
-            align-items: center; /* 중앙 정렬 추가 */
+            align-items: center;
             height: 100vh;
             margin: 0;
             background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
             color: #333;
             padding: 20px;
-            overflow: hidden; /* 스크롤을 위한 여유 공간 확보 */
+            overflow: hidden;
         }
         .container {
             background: white;
@@ -26,9 +26,9 @@
             width: 100%;
             max-width: 600px;
             box-sizing: border-box;
-            margin: 20px 0; /* 상단과 하단 여백 추가 */
-            overflow-y: auto; /* 스크롤 가능하도록 추가 */
-            max-height: 90vh; /* 높이 제한 추가 */
+            margin: 20px 0;
+            overflow-y: auto;
+            max-height: 90vh;
         }
         .title {
             font-size: 1.5em;
@@ -41,7 +41,7 @@
             height: 120px;
             border-radius: 50%;
             background-size: cover;
-            background-position: center; /* 이미지 중앙에 위치 */
+            background-position: center;
             margin: 0 auto 20px;
             border: 2px solid #ccc;
         }
@@ -53,6 +53,27 @@
             font-weight: bold;
             display: block;
             margin-bottom: 5px;
+        }
+        .buttons {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .buttons a {
+            margin: 0 10px;
+        }
+        .content-whitepaper {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .content-whitepaper a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            padding: 10px 20px;
+            border: 2px solid #333;
+            border-radius: 5px;
         }
         @media (max-width: 600px) {
             .container {
@@ -87,6 +108,19 @@
         <div class="data"><label>인게이지먼트 평가: </label><span id="engagement_evaluation"></span></div>
         <div class="data"><label>광고 역량 요약: </label><span id="influency_evaluation_as_advertiser"></span></div>
         <div class="data"><label>추천 제품 카테고리: </label><span id="suggested_products_categories"></span></div>
+
+        <div class="buttons">
+            <a href="https://www.instagram.com/moment.ryan" target="_blank">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram" width="50" height="50">
+            </a>
+            <a href="https://threads.net/moment.ryan" target="_blank">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/4/42/Threads_icon.png" alt="Threads" width="50" height="50">
+            </a>
+        </div>
+
+        <div class="content-whitepaper">
+            <a href="https://maily.so/moment.ryan" target="_blank">콘텐츠 백서</a>
+        </div>
     </div>
 
     <script>

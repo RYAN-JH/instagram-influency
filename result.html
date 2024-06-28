@@ -154,6 +154,18 @@
     </div>
 
     <script>
+        async function fetchImageAsDataURL(url) {
+            const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+            const response = await fetch(proxyUrl + url);
+            const blob = await response.blob();
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onloadend = () => resolve(reader.result);
+                reader.onerror = reject;
+                reader.readAsDataURL(blob);
+            });
+        }
+
         function getParameterByName(name) {
             const url = new URL(window.location.href);
             return url.searchParams.get(name);
@@ -163,31 +175,31 @@
             return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         }
 
-        const dataParam = getParameterByName('data');
-        
-        if (!dataParam) {
-            window.location.href = '/instagram-influency/error.html';
-        } else {
-            const data = JSON.parse(decodeURIComponent(dataParam));
+        async function loadData() {
+            const dataParam = getParameterByName('data');
 
-            document.getElementById('id').innerText = data.id;
-            document.getElementById('profile-image').src = data.profile_image;
+            if (!dataParam) {
+                window.location.href = '/instagram-influency/error.html';
+            } else {
+                const data = JSON.parse(decodeURIComponent(dataParam));
 
-            document.getElementById('followers_count').innerText = numberWithCommas(data.followers_count);
-            document.getElementById('expected_photo_ad_price_range').innerText = data.expected_photo_ad_price_range;
-            document.getElementById('expected_reels_ad_price_range').innerText = data.expected_reels_ad_price_range;
-            document.getElementById('average_likes_count').innerText = numberWithCommas(data.average_likes_count);
-            document.getElementById('average_comment_count').innerText = numberWithCommas(data.average_comment_count);
-            document.getElementById('expected_influency').innerText = numberWithCommas(data.expected_influency);
-            document.getElementById('engagement_evaluation').innerText = data.engagement_evaluation;
-            document.getElementById('influency_evaluation_as_advertiser').innerText = data.influency_evaluation_as_advertiser;
-            document.getElementById('suggested_products_categories').innerText = data.suggested_products_categories.join(', ');
+                document.getElementById('id').innerText = data.id;
+                const profileImageDataURL = await fetchImageAsDataURL(data.profile_image);
+                document.getElementById('profile-image').src = profileImageDataURL;
 
-            // Check if the image loads successfully
-            document.getElementById('profile-image').onerror = function() {
-                console.error('Profile image failed to load.');
-            };
+                document.getElementById('followers_count').innerText = numberWithCommas(data.followers_count);
+                document.getElementById('expected_photo_ad_price_range').innerText = data.expected_photo_ad_price_range;
+                document.getElementById('expected_reels_ad_price_range').innerText = data.expected_reels_ad_price_range;
+                document.getElementById('average_likes_count').innerText = numberWithCommas(data.average_likes_count);
+                document.getElementById('average_comment_count').innerText = numberWithCommas(data.average_comment_count);
+                document.getElementById('expected_influency').innerText = numberWithCommas(data.expected_influency);
+                document.getElementById('engagement_evaluation').innerText = data.engagement_evaluation;
+                document.getElementById('influency_evaluation_as_advertiser').innerText = data.influency_evaluation_as_advertiser;
+                document.getElementById('suggested_products_categories').innerText = data.suggested_products_categories.join(', ');
+            }
         }
+
+        window.onload = loadData;
     </script>
 </body>
 </html>

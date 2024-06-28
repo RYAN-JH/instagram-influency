@@ -84,8 +84,7 @@
         <div class="data"><label>평균 댓글 수: </label><span id="average_comment_count"></span></div>
         <div class="data"><label>예상 영향력: </label><span id="expected_influency"></span></div>
         <div class="data"><label>인게이지먼트 평가: </label><span id="engagement_evaluation"></span></div>
-        <div class="data"><label>광고주 평가: </label><span id="influency_evaluation_as_advertiser"></span></div>
-        <div class="data"><label>인플루언서 평가: </label><span id="influency_evaluation_as_influencer"></span></div>
+        <div class="data"><label>광고역량 요약: </label><span id="influency_evaluation_as_advertiser"></span></div>
         <div class="data"><label>추천 제품 카테고리: </label><span id="suggested_products_categories"></span></div>
     </div>
 
@@ -128,7 +127,6 @@
             document.getElementById('expected_influency').innerText = numberWithCommas(data.expected_influency);
             document.getElementById('engagement_evaluation').innerText = data.engagement_evaluation;
             document.getElementById('influency_evaluation_as_advertiser').innerText = data.influency_evaluation_as_advertiser;
-            document.getElementById('influency_evaluation_as_influencer').innerText = data.influency_evaluation_as_influencer;
             document.getElementById('suggested_products_categories').innerText = data.suggested_products_categories.join(', ');
         }
     </script>

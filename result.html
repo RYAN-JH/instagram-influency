@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>결과가 나왔어요.</title>
+    <title>결과 페이지</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -21,7 +21,7 @@
             padding: 30px;
             border-radius: 12px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            text-align: center;
+            text-align: left;
             width: 80%;
             max-width: 500px;
         }
@@ -29,6 +29,7 @@
             font-size: 2em;
             margin-bottom: 20px;
             font-weight: bold;
+            text-align: center;
         }
         .profile-image {
             width: 100px;
@@ -42,6 +43,7 @@
         }
         .data label {
             font-weight: bold;
+            display: block;
         }
     </style>
 </head>
@@ -50,17 +52,17 @@
         <div class="title">광고 역량 분석</div>
         <div id="profile-image" class="profile-image"></div>
         <div class="data"><label>ID: </label><span id="id"></span></div>
-        <div class="data"><label>Followers Count: </label><span id="followers_count"></span></div>
-        <div class="data"><label>Expected Photo Ad Price Range: </label><span id="expected_photo_ad_price_range"></span></div>
-        <div class="data"><label>Expected Reels Ad Price Range: </label><span id="expected_reels_ad_price_range"></span></div>
-        <div class="data"><label>Average Likes Count: </label><span id="average_likes_count"></span></div>
-        <div class="data"><label>Average Comment Count: </label><span id="average_comment_count"></span></div>
-        <div class="data"><label>Average Share Count: </label><span id="average_share_count"></span></div>
-        <div class="data"><label>Expected Influency: </label><span id="expected_influency"></span></div>
-        <div class="data"><label>Engagement Evaluation: </label><span id="engagement_evaluation"></span></div>
-        <div class="data"><label>Influency Evaluation as Advertiser: </label><span id="influency_evaluation_as_advertiser"></span></div>
-        <div class="data"><label>Influency Evaluation as Influencer: </label><span id="influency_evaluation_as_influencer"></span></div>
-        <div class="data"><label>Suggested Products Categories: </label><span id="suggested_products_categories"></span></div>
+        <div class="data"><label>팔로워 수: </label><span id="followers_count"></span></div>
+        <div class="data"><label>예상 사진 광고 단가 범위: </label><span id="expected_photo_ad_price_range"></span></div>
+        <div class="data"><label>예상 릴스 광고 단가 범위: </label><span id="expected_reels_ad_price_range"></span></div>
+        <div class="data"><label>평균 좋아요 수: </label><span id="average_likes_count"></span></div>
+        <div class="data"><label>평균 댓글 수: </label><span id="average_comment_count"></span></div>
+        <div class="data"><label>평균 공유 수: </label><span id="average_share_count"></span></div>
+        <div class="data"><label>추천 제품 카테고리: </label><span id="suggested_products_categories"></span></div>
+        <div class="data"><label>예상 영향력: </label><span id="expected_influency"></span></div>
+        <div class="data"><label>인게이지먼트 평가: </label><span id="engagement_evaluation"></span></div>
+        <div class="data"><label>광고주 평가: </label><span id="influency_evaluation_as_advertiser"></span></div>
+        <div class="data"><label>인플루언서 평가: </label><span id="influency_evaluation_as_influencer"></span></div>
     </div>
 
     <script>
@@ -69,23 +71,27 @@
             return url.searchParams.get(name);
         }
 
+        function numberWithCommas(x) {
+            return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+
         const dataParam = getParameterByName('data');
         
         if (!dataParam) {
-            window.location.href = 'error.html';
+            window.location.href = '/instagram-influency/error.html';
         } else {
             const data = JSON.parse(decodeURIComponent(dataParam));
 
             document.getElementById('id').innerText = data.id;
             document.getElementById('profile-image').style.backgroundImage = `url(${data.profile_image})`;
-            document.getElementById('followers_count').innerText = data.followers_count;
+            document.getElementById('followers_count').innerText = numberWithCommas(data.followers_count);
             document.getElementById('expected_photo_ad_price_range').innerText = data.expected_photo_ad_price_range;
             document.getElementById('expected_reels_ad_price_range').innerText = data.expected_reels_ad_price_range;
-            document.getElementById('average_likes_count').innerText = data.average_likes_count;
-            document.getElementById('average_comment_count').innerText = data.average_comment_count;
-            document.getElementById('average_share_count').innerText = data.average_share_count;
-            document.getElementById('expected_influency').innerText = data.expected_influency;
-            document.getElementById('engagement_evaluation').innerText = data.engagement_evaluation;
+            document.getElementById('average_likes_count').innerText = numberWithCommas(data.average_likes_count);
+            document.getElementById('average_comment_count').innerText = numberWithCommas(data.average_comment_count);
+            document.getElementById('average_share_count').innerText = numberWithCommas(data.average_share_count);
+            document.getElementById('expected_influency').innerText = numberWithCommas(data.expected_influency);
+            document.getElementById('engagement_evaluation').innerText = numberWithCommas(data.engagement_evaluation);
             document.getElementById('influency_evaluation_as_advertiser').innerText = data.influency_evaluation_as_advertiser;
             document.getElementById('influency_evaluation_as_influencer').innerText = data.influency_evaluation_as_influencer;
             document.getElementById('suggested_products_categories').innerText = data.suggested_products_categories.join(', ');

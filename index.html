@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>인스타그램 광고 단가 예측하기</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+            color: #333;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 80%;
+            max-width: 500px;
+        }
+        .title {
+            font-size: 2em;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        .subtitle {
+            font-size: 1em;
+            margin-bottom: 20px;
+            color: #555;
+        }
+        .description {
+            font-size: 0.9em;
+            margin-bottom: 20px;
+            color: #777;
+        }
+        .input-group {
+            margin-bottom: 20px;
+            margin-top: 20px; /* 입력 창 위에 여백 추가 */
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+        }
+        .input-group input {
+            width: 100%;
+            padding: 10px;
+            font-size: 1em;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+        }
+        .input-group input:focus {
+            outline: none;
+            border-color: #0077b6;
+        }
+        .submit-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 1em;
+            color: white;
+            background-color: #333;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .submit-btn:hover {
+            background-color: #555;
+        }
+        .confirmation-message {
+            font-size: 1em;
+            color: #0077b6;
+            margin-top: 20px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* 입력 폼 가운데 정렬 */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="title">인스타그램 광고<br>단가 예측하기</div>
+        <div class="description">서버 과부하로 서비스가 중지되었습니다.<br>이메일 주소를 남겨주시면 복구 후 안내 메일을 보내드려요.</div>
+        <form id="instagram-form">
+            <div class="input-group">
+                <input type="email" id="email" name="email" placeholder="이메일 주소 입력" required>
+            </div>
+            <button type="submit" class="submit-btn">대기리스트 등록하기</button>
+        </form>
+        <div class="confirmation-message" id="confirmation-message" style="display: none;">
+            정상화 되면 가장 먼저 알려드릴게요!
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('instagram-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const email = document.getElementById('email').value;
+            
+            if (!email) {
+                alert("이메일 주소를 입력해주세요.");
+                return;
+            }
+
+            const url = `https://hook.us1.make.com/grsptzpj9rjcjuxp7ulzooq0df1wmc1n?email=${encodeURIComponent(email)}`;
+
+            // URL 호출
+            fetch(url).catch((error) => {
+                console.error('Error:', error);
+            });
+
+            // 성공으로 간주하고 버튼 비활성화 및 메시지 표시
+            document.querySelector('.submit-btn').style.display = 'none';
+            document.getElementById('email').disabled = true;
+            document.getElementById('confirmation-message').style.display = 'block';
+        });
+    </script>
+</body>
+</html>

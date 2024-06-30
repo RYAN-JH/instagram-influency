@@ -88,6 +88,57 @@
             margin-top: 10px;
             color: #333;
         }
+        .ad-container {
+            margin-top: 30px;
+            padding: 20px;
+            border-top: 1px solid #ddd;
+            text-align: left;
+            background-color: rgba(240, 242, 245, 0.5); /* 50% 투명도 */
+            border-radius: 12px;
+            width: 100%;
+            max-width: 500px;
+        }
+        .ad-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .ad-title {
+            font-size: 1.4em;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #000;
+        }
+        .ad-description {
+            font-size: 1em;
+            color: #555;
+            margin: 0 20px; /* 좌우 마진 추가 */
+        }
+        .ad-icon {
+            width: 100px;
+            height: 100px;
+            margin-right: 20px;
+            margin-left: 20px;
+            border-radius: 20px; /* 20px 라운딩 처리 */
+        }
+        .ad-link-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .ad-link {
+            display: inline-block;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            color: white;
+            background-color: #000;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .ad-link:hover {
+            background-color: #333;
+        }
         form {
             display: flex;
             flex-direction: column;
@@ -108,6 +159,19 @@
         <div class="progress-spinner" id="progress-spinner">
             <img src="https://i.imgur.com/llF5iyg.gif" alt="Loading...">
             <p>인게이지먼트 수집 중...</p>
+        </div>
+    </div>
+
+    <div class="ad-container">
+        <div class="ad-content">
+            <img class="ad-icon" src="https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/81/6a/d8/816ad848-8eeb-cd86-1a7d-f628ffd168da/AppIcon-0-0-1x_U007epad-0-85-220.png/460x0w.webp" alt="네거티브 앱 아이콘">
+            <div class="ad-description">
+                <div class="ad-title">클릭 한 번에 필름 감성을 내 피드에,<br>[네거티브](iOS)</div>
+                <div>사진 보정하기는 귀찮고, 필름 감성은 소중하다면?<br>네거티브 앱을 지금 다운로드하세요.</div>
+            </div>
+        </div>
+        <div class="ad-link-container">
+            <a class="ad-link" href="https://apps.apple.com/kr/app/id6453697787" target="_blank">앱 다운로드</a>
         </div>
     </div>
 

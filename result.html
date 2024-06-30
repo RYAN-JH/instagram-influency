@@ -15,6 +15,7 @@
             background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
             color: #333;
             padding: 20px;
+            box-sizing: border-box;
             overflow: hidden;
         }
         .container {
@@ -26,7 +27,6 @@
             width: 100%;
             max-width: 600px;
             box-sizing: border-box;
-            margin: 20px 0;
             overflow-y: auto;
             max-height: 90vh;
         }
@@ -80,6 +80,7 @@
             align-items: center;
             margin-left: auto;
             margin-right: auto;
+            box-sizing: border-box;
         }
         .ad-content {
             display: flex;
@@ -87,6 +88,7 @@
             justify-content: center;
             text-align: left;
             width: 100%;
+            box-sizing: border-box;
         }
         .ad-title {
             font-size: 1.2em;
@@ -143,6 +145,12 @@
             .buttons img {
                 width: 30px;
                 height: 30px;
+            }
+            .ad-description {
+                margin: 0;
+            }
+            .ad-container {
+                max-width: 100%;
             }
         }
     </style>

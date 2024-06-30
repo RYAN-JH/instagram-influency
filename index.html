@@ -151,7 +151,7 @@
 <body>
     <div class="container">
         <div class="title">인스타그램 광고<br>단가 예측하기</div>
-        <div class="description">아이디를 포함한 모든 정보는<br>인게이지먼트 계산 후 삭제됩니다.</div>
+        <div class="description">아래 버튼을 누르시면 즉시 계산이 시작되며,<br><a href="/instagram-influency/agreement.html" target="_blank">이용약관</a>에 동의하시게 됩니다.</div>
         <form id="instagram-form">
             <div class="input-group">
                 <input type="text" id="instagram-id" name="instagram-id" placeholder="인스타그램 아이디 (필수)" required>
@@ -220,19 +220,4 @@
 
         if (/android/i.test(userAgent) || /windows/i.test(userAgent)) {
             showAd('newsletter');
-        } else if (/iPad|iPhone|iPod|Macintosh/.test(userAgent) && !window.MSStream) {
-            let visitCount = localStorage.getItem('visitCount') || 0;
-            visitCount++;
-            localStorage.setItem('visitCount', visitCount);
-
-            if (visitCount % 2 === 0) {
-                showAd('newsletter');
-            } else {
-                showAd('negative');
-            }
-        } else {
-            document.getElementById('ad-container').style.display = 'none';
-        }
-    </script>
-</body>
-</html>
+        } else if (/iPad|iPhone|iPod|Macintosh/.

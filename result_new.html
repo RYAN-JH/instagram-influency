@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>예측 결과</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+            color: #333;
+            padding: 20px;
+            overflow: hidden;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            text-align: left;
+            width: 100%;
+            max-width: 600px;
+            box-sizing: border-box;
+            margin: 20px 0;
+            overflow-y: auto;
+            max-height: 90vh;
+        }
+        .title {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            font-weight: bold;
+            text-align: center;
+        }
+        .data {
+            margin: 15px 0;
+            font-size: 0.9em;
+        }
+        .data label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+        .footer-text {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.8em;
+        }
+        .footer-text a {
+            text-decoration: none;
+            color: #0077b6;
+        }
+        .buttons {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+        .buttons a {
+            margin: 0 10px;
+        }
+        .buttons img {
+            width: 40px;
+            height: 40px;
+        }
+        .ad-container {
+            margin-top: 20px;
+            padding: 15px;
+            border-top: 1px solid #ddd;
+            text-align: center;
+            background-color: rgba(240, 242, 245, 0.5);
+            border-radius: 12px;
+            width: 100%;
+            max-width: 400px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .ad-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: left;
+            width: 100%;
+        }
+        .ad-title {
+            font-size: 1.2em;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #000;
+        }
+        .ad-description {
+            font-size: 0.8em;
+            color: #555;
+            margin: 0 10px;
+        }
+        .ad-icon {
+            width: 60px;
+            height: 60px;
+            margin-right: 10px;
+            border-radius: 10px;
+        }
+        .ad-link-container {
+            text-align: center;
+            margin-top: 15px;
+        }
+        .ad-link {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 1em;
+            color: white;
+            background-color: #000;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .ad-link:hover {
+            background-color: #333;
+        }
+        .disclaimer {
+            font-size: 0.8em;
+            color: #666;
+            font-style: italic;
+            margin-top: 10px;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+            .title {
+                font-size: 1.2em;
+            }
+            .data {
+                font-size: 0.8em;
+                margin: 10px 0;
+            }
+            .buttons img {
+                width: 30px;
+                height: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="title">예측 결과</div>
+        <div class="data"><label>ID: </label><span id="id"></span></div>
+        <div class="data"><label>팔로워 수: </label><span id="followers_count"></span></div>
+        <div class="data"><label>예상 사진 광고 단가 범위: </label><span id="expected_photo_ad_price_range"></span></div>
+        <div class="data"><label>예상 릴스 광고 단가 범위: </label><span id="expected_reels_ad_price_range"></span></div>
+        <div class="data"><label>평균 좋아요 수: </label><span id="average_likes_count"></span></div>
+        <div class="data"><label>평균 댓글 수: </label><span id="average_comment_count"></span></div>
+        <div class="data"><label>예상 영향력(100점 만점): </label><span id="expected_influency"></span></div>
+        <div class="data"><label>인게이지먼트 평가: </label><span id="engagement_evaluation"></span></div>
+        <div class="data"><label>광고 역량 요약: </label><span id="influency_evaluation_as_advertiser"></span></div>
+        <div class="data"><label>추천 제품 카테고리: </label><span id="suggested_products_categories"></span></div>
+        <div class="disclaimer">주의: 예측 모델은 완벽하지 않으며, 참고용도로 사용하시기 바랍니다.</div>
+
+        <div class="footer-text">
+            강력한 콘텐츠가 강력한 영향력을 만듭니다. <br><a href="https://threads.net/moment.ryan" target="_blank">@moment.ryan</a> 과 함께 콘텐츠 파워를 높여보세요.
+        </div>
+
+        <div class="ad-container" id="ad-container">
+            <div class="ad-content">
+                <img class="ad-icon" id="ad-icon" alt="앱 아이콘">
+                <div class="ad-description">
+                    <div class="ad-title" id="ad-title"></div>
+                    <div id="ad-text"></div>
+                </div>
+            </div>
+            <div class="ad-link-container">
+                <a class="ad-link" id="ad-link" target="_blank"></a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function getParameterByName(name) {
+            const url = new URL(window.location.href);
+            return url.searchParams.get(name);
+        }
+
+        function numberWithCommas(x) {
+            return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+
+        async function loadData() {
+            const dataParam = getParameterByName('data');
+
+            if (!dataParam) {
+                window.location.href = '/error.html';
+            } else {
+                const data = JSON.parse(decodeURIComponent(dataParam));
+
+                document.getElementById('id').innerText = data.id;
+                document.getElementById('followers_count').innerText = numberWithCommas(data.followers_count);
+                document.getElementById('expected_photo_ad_price_range').innerText = data.expected_photo_ad_price_range;
+                document.getElementById('expected_reels_ad_price_range').innerText = data.expected_reels_ad_price_range;
+                document.getElementById('average_likes_count').innerText = numberWithCommas(data.average_likes_count);
+                document.getElementById('average_comment_count').innerText = numberWithCommas(data.average_comment_count);
+                document.getElementById('expected_influency').innerText = numberWithCommas(data.expected_influency);
+                document.getElementById('engagement_evaluation').innerText = data.engagement_evaluation;
+                document.getElementById('influency_evaluation_as_advertiser').innerText = data.influency_evaluation_as_advertiser;
+                document.getElementById('suggested_products_categories').innerText = data.suggested_products_categories.join(', ');
+            }
+        }
+
+        const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+        function showAd(adType) {
+            if (adType === 'newsletter') {
+                document.getElementById('ad-icon').src = 'https://cdn.maily.so/202406/1717261552425114.jpeg'; // 뉴스레터 아이콘 URL
+                document.getElementById('ad-title').innerHTML = '크리에이터의 몸값은<br>콘텐츠 영향력이 결정해요.';
+                document.getElementById('ad-text').innerHTML = '16만 팔로워를 1년 만에 모셔온 라이언의<br><strong>[콘텐츠 백서]</strong> 뉴스레터를 무료로 구독하고<br>콘텐츠 영향력을 높여보세요!';
+                document.getElementById('ad-link').textContent = '무료 뉴스레터 구독하기';
+                document.getElementById('ad-link').href = 'https://maily.so/moment.ryan';
+            } else {
+                document.getElementById('ad-icon').src = 'https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/81/6a/d8/816ad848-8eeb-cd86-1a7d-f628ffd168da/AppIcon-0-0-1x_U007epad-0-85-220.png/460x0w.webp'; // iOS 앱 아이콘 URL
+                document.getElementById('ad-title').innerHTML = '클릭 한 번으로 내 피드에 필름 감성을.<br><strong>[네거티브]</strong>(iOS)';
+                document.getElementById('ad-text').innerHTML = '사진 보정은 귀찮은데, 필름 감성도 소중하다면?<br>네거티브 앱을 지금 다운로드하세요.';
+                document.getElementById('ad-link').textContent = '앱 다운로드';
+                document.getElementById('ad-link').href = 'https://apps.apple.com/kr/app/id6453697787';
+            }
+        }
+
+        if (/android/i.test(userAgent) || /windows/i.test(userAgent)) {
+            showAd('newsletter');
+        } else if (/iPad|iPhone|iPod|Macintosh/.test(userAgent) && !window.MSStream) {
+            let visitCount = localStorage.getItem('visitCount') || 0;
+            visitCount++;
+            localStorage.setItem('visitCount', visitCount);
+
+            if (visitCount % 2 === 0) {
+                showAd('newsletter');
+            } else {
+                showAd('negative');
+            }
+        } else {
+            document.getElementById('ad-container').style.display = 'none';
+        }
+
+        window.onload = loadData;
+    </script>
+</body>
+</html>
